@@ -1,0 +1,163 @@
+# ❤️ Heartify
+
+**A Vision-Based System for Early Screening and Monitoring of Chronic Disease Risk Using Emotion and rPPG Signals**
+
+---
+
+## 📌 Overview
+
+**Heartify** is a browser-based, vision-driven health screening and monitoring system designed to enable **early detection and continuous tracking of chronic disease risk**.  
+The system leverages **mobile camera sensors**, **remote photoplethysmography (rPPG)**, and **facial emotion analysis** to extract non-invasive physiological and psychological indicators in real time.
+
+Heartify is intended as a **pre-screening and monitoring tool**, not a medical diagnostic device, supporting clinicians and users with longitudinal health insights.
+
+---
+
+## 🎯 Key Objectives
+
+- Enable **early-stage risk screening** for stress-related and chronic conditions
+- Provide **non-contact heart rate estimation** using fingertip rPPG
+- Capture **emotion and stress indicators** via facial analysis
+- Support **long-term monitoring** with temporal data accumulation
+- Lay the foundation for a **personalized AI health assistant**
+
+---
+
+## 🧩 System Workflow
+
+The application follows a **strict step-based health test flow**:
+
+### **Step 1 – Face Detection**
+
+- Uses **front camera**
+- Detects face presence in real time
+- Displays live status: _Face detected / Not detected_
+- Allows progression only after successful detection
+
+### **Step 2 – Fingertip rPPG**
+
+- Switches to **rear camera**
+- Enables **mobile flashlight (torch)**
+- Detects finger presence using **mean green intensity**
+- Estimates heart rate (BPM) from rPPG signals
+- Prevents progression if finger contact is invalid
+
+### **Step 3 – Results Dashboard**
+
+Displays:
+
+- Emotion probabilities:
+  - `sad`, `happy`, `neutral`, `angry`, `fear`, `disgust`, `surprise`
+- Stress score
+- Mean green signal value
+- Estimated heart rate (BPM)
+- rPPG waveform visualization
+
+---
+
+## 🏗️ Architecture
+
+### **Frontend**
+
+- HTML5, CSS3, Vanilla JavaScript
+- WebRTC camera access
+- MediaPipe Face Detection
+- Canvas-based signal visualization
+- Step-controlled UI logic
+
+### **Backend**
+
+- FastAPI (Python)
+- REST endpoints:
+  - `/predict` → emotion & stress inference
+  - `/predict_hr` → rPPG-based heart rate estimation
+- Modular inference pipeline for future model extensions
+
+### **Models & Signal Processing**
+
+- Facial emotion recognition (CNN / Transfer Learning)
+- rPPG signal extraction from RGB frames
+- Peak detection and temporal filtering
+- Stress score derived from emotion probabilities
+
+---
+
+## 📁 Project Structure
+
+heartify/
+│
+├── backend/
+│ ├── server.py
+│ ├── model_utils.py
+│ ├── rppg/
+│ │ ├── rppg_inference.py
+│ │ └── init.py
+│ └── frontend/
+│ ├── index.html
+│ ├── css/
+│ │ └── style.css
+│ └── js/
+│ └── app.js
+│
+├── models/
+│ └── face_emotion_model/
+│
+├── data/
+│ └── training_data.xlsx
+│
+└── README.md
+
+---
+
+## 🚀 Features
+
+- Non-invasive heart rate measurement
+- Real-time facial emotion detection
+- Stress estimation from affective signals
+- Torch control on supported Android devices
+- Deterministic, step-based user flow
+- Designed for extensibility and research use
+
+---
+
+## 🧪 Research Relevance
+
+Heartify supports:
+
+- **Early chronic disease risk assessment**
+- **Longitudinal health monitoring**
+- **Digital phenotyping**
+- **Preventive healthcare research**
+- **Human-centered AI in health**
+
+The system is suitable for academic research, prototyping, and controlled experimental studies.
+
+---
+
+## ⚠️ Disclaimer
+
+Heartify is **not a medical device**.  
+Results are for **informational and research purposes only** and should not be used as a substitute for professional medical diagnosis or treatment.
+
+---
+
+## 🔮 Planned Extensions (Future Work)
+
+- AI-driven **diet recommendations** using LLMs
+- Personalized **sleep and exercise planning**
+- Context-aware **health Q&A chatbot**
+- Multi-session trend analysis and clinician dashboards
+
+---
+
+## 👤 Author
+
+**Pranav Maurya**  
+Student Software Developer | Health-Tech & AI Research
+
+---
+
+## 📜 License
+
+This project is intended for **academic and research use**.  
+License terms can be added based on institutional or publication requirements.

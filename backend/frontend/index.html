@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, viewport-fit=cover"
+    />
+    <meta name="mobile-web-app-capable" content="yes" />
+    <title>Heartify — Health Check</title>
+
+    <link rel="stylesheet" href="/static/css/style.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+
+  <body>
+    <div class="wrap">
+      <header class="page-header">
+        <h1>Heartify — Health Check</h1>
+        <p class="subtitle">Non-contact heart rate & emotion analysis</p>
+      </header>
+
+      <div class="step-indicator">
+        <span class="step active" data-step="1">1</span>
+        <span class="step" data-step="2">2</span>
+        <span class="step" data-step="3">3</span>
+        <span class="step" data-step="4">4</span>
+      </div>
+
+      <section class="card video-card" id="videoCard">
+        <div class="video-area">
+          <video id="video" autoplay playsinline muted></video>
+          <canvas id="overlay"></canvas>
+          <div
+            id="ppgLoadingOverlay"
+            class="ppg-loading-overlay"
+            style="display: none"
+          >
+            <div class="spinner"></div>
+            <p>Measuring heart rate...</p>
+          </div>
+        </div>
+      </section>
+
+      <div class="steps-container">
+        <!-- Step 1: Face Capture -->
+        <section class="step-panel active" id="step-face">
+          <div class="card">
+            <h2 class="card-title">Step 1: Capture Your Photo</h2>
+            <p>Center your face in the green box and tap Capture when ready.</p>
+
+            <div class="status-item large">
+              <span class="status-label">Face Status</span>
+              <span id="faceStateStep1" class="status-value"
+                >Initializing...</span
+              >
+            </div>
+
+            <button id="captureBtn" class="btn capture-btn" disabled>
+              <span class="icon">📸</span> Capture Photo
+            </button>
+
+            <div
+              id="photoPreviewContainer"
+              class="photo-preview"
+              style="display: none"
+            >
+              <strong>Your Captured Photo:</strong>
+              <div class="photo-container">
+                <img id="capturedPhoto" alt="Captured face" />
+              </div>
+              <div class="photo-actions">
+                <button id="retakeBtn" class="btn btn-outline">
+                  Retake Photo
+                </button>
+                <button id="usePhotoBtn" class="btn btn-primary">
+                  Use This Photo
+                </button>
+              </div>
+            </div>
+
+            <div
+              class="emotion-preview"
+              id="emotionPreview"
+              style="display: none"
+            >
+              <strong>Detected Emotions:</strong>
+              <div id="liveEmotionResult" class="emotion-chips"></div>
+            </div>
+
+            <button
+              id="continue-face"
+              class="btn continue-btn full-width"
+              disabled
+            >
+              Continue to Heart Rate Measurement
+            </button>
+          </div>
+        </section>
+
+        <!-- Step 2: PPG -->
+        <section class="step-panel" id="step-ppg">
+          <div class="card">
+            <h2 class="card-title">Step 2: Heart Rate Measurement</h2>
+            <p>Cover the rear camera and flashlight with your fingertip.</p>
+
+            <div class="status-grid">
+              <div class="status-item">
+                <span class="status-label">Finger Contact</span>
+                <span id="fingerState" class="status-value">No</span>
+              </div>
+              <div class="status-item">
+                <span class="status-label">Heart Rate</span>
+                <span id="hrEstimateStep2" class="status-value highlight"
+                  >—</span
+                >
+                <span class="unit">bpm</span>
+              </div>
+            </div>
+
+            <button
+              id="continue-ppg"
+              class="btn btn-primary full-width"
+              disabled
+            >
+              View Results
+            </button>
+          </div>
+        </section>
+
+        <!-- Step 3: Results -->
+        <section class="step-panel" id="step-result">
+          <div class="card">
+            <h2 class="card-title">Your Results</h2>
+
+            <div class="status-grid">
+              <div class="status-item">
+                <span class="status-label">Heart Rate</span>
+                <span id="hrEstimateFinal" class="status-value highlight"
+                  >—</span
+                >
+                <span class="unit">bpm</span>
+              </div>
+              <div class="status-item">
+                <span class="status-label">Stress Level</span>
+                <span id="stressScoreFinal" class="status-value">—</span>
+              </div>
+            </div>
+
+            <div class="emotion-section">
+              <strong>Detected Emotions:</strong>
+              <div id="emotionResult" class="emotion-chips"></div>
+            </div>
+
+            <div class="plot-card">
+              <h2 class="card-title">PPG Signal</h2>
+              <div class="plots">
+                <canvas id="waveCanvas"></canvas>
+              </div>
+            </div>
+
+            <button id="ai-analysis-btn" class="btn btn-primary full-width">
+              Get AI Health Insights
+            </button>
+          </div>
+        </section>
+
+        <!-- Step 4: AI Health Insights -->
+        <section class="step-panel" id="step-ai">
+          <div class="card">
+            <h2 class="card-title">AI Health Insights</h2>
+            <p class="ai-note">
+              Personalized recommendations based on your results
+            </p>
+
+            <div id="ai-loading" class="ai-loading">
+              <div class="spinner"></div>
+              <p>Analyzing your health data with AI...</p>
+            </div>
+
+            <div id="ai-content" style="display: none">
+              <div class="ai-section">
+                <h3>Chronic Disease Risk Prediction</h3>
+                <pre id="chronic-prediction">Loading...</pre>
+              </div>
+
+              <div class="ai-section">
+                <h3>Personalized Diet Plan</h3>
+                <pre id="diet-plan">Loading...</pre>
+              </div>
+
+              <div class="ai-section">
+                <h3>Exercise Recommendations</h3>
+                <pre id="exercise-suggestion">Loading...</pre>
+              </div>
+            </div>
+
+            <button id="restart-from-ai" class="btn btn-primary full-width">
+              Start New Test
+            </button>
+          </div>
+        </section>
+      </div>
+
+      <section class="card notes-card">
+        <p class="notes">Works best on Android Chrome with good lighting.</p>
+      </section>
+    </div>
+
+    <script src="/static/js/app.js"></script>
+  </body>
+</html>
