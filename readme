@@ -1,163 +1,183 @@
-### ❤️ Heartify
+❤️ Heartify
 
-**A Vision-Based System for Early Screening and Monitoring of Chronic Disease Risk Using Emotion and rPPG Signals**
+A Vision-Based System for Early Screening and Monitoring of Chronic Disease Risk Using Emotion Analysis and rPPG Signals
 
----
+📌 Overview
 
-## 📌 Overview
+Heartify is a browser-based, vision-driven health screening and monitoring system designed to support early detection and continuous monitoring of chronic disease risk.
 
-**Heartify** is a browser-based, vision-driven health screening and monitoring system designed to enable **early detection and continuous tracking of chronic disease risk**.  
-The system leverages **mobile camera sensors**, **remote photoplethysmography (rPPG)**, and **facial emotion analysis** to extract non-invasive physiological and psychological indicators in real time.
+The system leverages:
 
-Heartify is intended as a **pre-screening and monitoring tool**, not a medical diagnostic device, supporting clinicians and users with longitudinal health insights.
+Mobile camera sensors
 
----
+Remote photoplethysmography (rPPG)
 
-## 🎯 Key Objectives
+Facial emotion analysis
 
-- Enable **early-stage risk screening** for stress-related and chronic conditions
-- Provide **non-contact heart rate estimation** using fingertip rPPG
-- Capture **emotion and stress indicators** via facial analysis
-- Support **long-term monitoring** with temporal data accumulation
-- Lay the foundation for a **personalized AI health assistant**
+to extract non-invasive physiological and psychological indicators in real time.
 
----
+Heartify is intended as a pre-screening and monitoring solution, not a medical diagnostic device, and is designed to assist users and clinicians with longitudinal health insights.
 
-## 🧩 System Workflow
+🎯 Key Objectives
 
-The application follows a **strict step-based health test flow**:
+Enable early-stage risk screening for stress-related and chronic conditions
 
-### **Step 1 – Face Detection**
+Provide non-contact heart rate estimation using fingertip-based rPPG
 
-- Uses **front camera**
-- Detects face presence in real time
-- Displays live status: _Face detected / Not detected_
-- Allows progression only after successful detection
+Capture emotion and stress indicators through facial analysis
 
-### **Step 2 – Fingertip rPPG**
+Support long-term monitoring via temporal data collection
 
-- Switches to **rear camera**
-- Enables **mobile flashlight (torch)**
-- Detects finger presence using **mean green intensity**
-- Estimates heart rate (BPM) from rPPG signals
-- Prevents progression if finger contact is invalid
+Lay the foundation for a personalized AI-powered health assistant
 
-### **Step 3 – Results Dashboard**
+🧩 System Workflow
 
-Displays:
+Heartify follows a deterministic, step-based health assessment flow to ensure reliability and user guidance.
 
-- Emotion probabilities:
-  - `sad`, `happy`, `neutral`, `angry`, `fear`, `disgust`, `surprise`
-- Stress score
-- Mean green signal value
-- Estimated heart rate (BPM)
-- rPPG waveform visualization
+Step 1 – Face Detection
 
----
+Uses the front-facing camera
 
-## 🏗️ Architecture
+Detects face presence in real time
 
-### **Frontend**
+Displays live status: Face detected / Not detected
 
-- HTML5, CSS3, Vanilla JavaScript
-- WebRTC camera access
-- MediaPipe Face Detection
-- Canvas-based signal visualization
-- Step-controlled UI logic
+Allows progression only after successful detection
 
-### **Backend**
+Step 2 – Fingertip rPPG Measurement
 
-- FastAPI (Python)
-- REST endpoints:
-  - `/predict` → emotion & stress inference
-  - `/predict_hr` → rPPG-based heart rate estimation
-- Modular inference pipeline for future model extensions
+Switches to the rear camera
 
-### **Models & Signal Processing**
+Activates mobile flashlight (torch) where supported
 
-- Facial emotion recognition (CNN / Transfer Learning)
-- rPPG signal extraction from RGB frames
-- Peak detection and temporal filtering
-- Stress score derived from emotion probabilities
+Detects finger placement using mean green channel intensity
 
----
+Extracts rPPG signals to estimate heart rate (BPM)
 
-## 📁 Project Structure
+Prevents progression if finger contact quality is insufficient
 
+Step 3 – Results Dashboard
+
+Displays the following outputs:
+
+Emotion probability distribution:
+
+sad, happy, neutral, angry, fear, disgust, surprise
+
+Stress score
+
+Mean green signal value
+
+Estimated heart rate (BPM)
+
+rPPG waveform visualization
+
+🏗️ System Architecture
+Frontend
+
+HTML5, CSS3, Vanilla JavaScript
+
+WebRTC-based camera access
+
+MediaPipe Face Detection
+
+Canvas-based real-time signal visualization
+
+Step-controlled UI logic for guided flow
+
+Backend
+
+FastAPI (Python)
+
+RESTful endpoints:
+
+/predict → Emotion and stress inference
+
+/predict_hr → rPPG-based heart rate estimation
+
+Modular and extensible inference pipeline
+
+Models & Signal Processing
+
+Facial emotion recognition using CNN / Transfer Learning
+
+rPPG signal extraction from RGB video frames
+
+Temporal filtering and peak detection
+
+Stress score computation derived from emotion probabilities
+
+📁 Project Structure
 heartify/
 │
 ├── backend/
-│ ├── server.py
-│ ├── model_utils.py
-│ ├── rppg/
-│ │ ├── rppg_inference.py
-│ │ └── init.py
-│ └── frontend/
-│ ├── index.html
-│ ├── css/
-│ │ └── style.css
-│ └── js/
-│ └── app.js
+│   ├── server.py
+│   ├── model_utils.py
+│   ├── rppg/
+│   │   ├── rppg_inference.py
+│   │   └── __init__.py
+│
+├── frontend/
+│   ├── index.html
+│   ├── css/
+│   │   └── style.css
+│   └── js/
+│       └── app.js
 │
 ├── models/
-│ └── face_emotion_model/
+│   └── face_emotion_model/
 │
 ├── data/
-│ └── training_data.xlsx
+│   └── training_data.xlsx
 │
 └── README.md
 
----
+🚀 Features
 
-## 🚀 Features
+Non-invasive heart rate estimation
 
-- Non-invasive heart rate measurement
-- Real-time facial emotion detection
-- Stress estimation from affective signals
-- Torch control on supported Android devices
-- Deterministic, step-based user flow
-- Designed for extensibility and research use
+Real-time facial emotion detection
 
----
+Stress estimation from affective signals
 
-## 🧪 Research Relevance
+Torch control on supported Android devices
 
-Heartify supports:
+Deterministic, step-based user interaction
 
-- **Early chronic disease risk assessment**
-- **Longitudinal health monitoring**
-- **Digital phenotyping**
-- **Preventive healthcare research**
-- **Human-centered AI in health**
+Designed for extensibility and research experimentation
 
-The system is suitable for academic research, prototyping, and controlled experimental studies.
+🧪 Research Relevance
 
----
+Heartify supports research and experimentation in:
 
-## ⚠️ Disclaimer
+Early chronic disease risk assessment
 
-Heartify is **not a medical device**.  
-Results are for **informational and research purposes only** and should not be used as a substitute for professional medical diagnosis or treatment.
+Longitudinal health monitoring
 
----
+Digital phenotyping
 
-## 🔮 Planned Extensions (Future Work)
+Preventive healthcare systems
 
-- AI-driven **diet recommendations** using LLMs
-- Personalized **sleep and exercise planning**
-- Context-aware **health Q&A chatbot**
-- Multi-session trend analysis and clinician dashboards
+Human-centered AI in health applications
 
----
+The system is suitable for academic research, hackathons, prototyping, and controlled experimental studies.
 
-## 👤 Author
+⚠️ Disclaimer
 
-**Pranav Maurya**  
+Heartify is not a medical device.
+All results are provided for informational and research purposes only and should not be used as a substitute for professional medical diagnosis or treatment.
+
+🔮 Planned Extensions (Future Work)
+
+AI-driven diet and lifestyle recommendations using LLMs
+
+Personalized sleep and exercise planning
+
+Context-aware health Q&A chatbot
+
+Multi-session trend analysis and clinician dashboards
+
+👤 Author
+
+Pranav Maurya
 Student Software Developer | Health-Tech & AI Research
-
----
-
-## 📜 License
-
-This project is intended for **academic and research use**.  
-License terms can be added based on institutional or publication requirements.
